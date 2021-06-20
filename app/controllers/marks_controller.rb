@@ -1,21 +1,28 @@
 class MarksController < ApplicationController
 
+  def edit
+    @post = Post.find(params[:post_id])
+    @mark = Mark.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:post_id])
+    @mark = Mark.find(params[:id])
+
+    @mark.letter = letter @mark.points
+
+    if @mark.update(marks_params)
+      redirect_to post_path @post
+    else
+      render 'edit'
+    end
+  end
+
   def create
     @post = Post.find params[:post_id]
 
     mark = Mark.new marks_params
-    mark.letter =
-      if mark.points > 85
-        'A'
-      elsif mark.points > 65
-        'B'
-      elsif mark.points > 40
-        'C'
-      elsif mark.points > 20
-        'D'
-      else
-        'F'
-      end
+    mark.letter = letter mark.points
     @post.marks.create({ points: mark.points, letter: mark.letter })
     redirect_to post_path @post
   end

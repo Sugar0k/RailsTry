@@ -12,6 +12,7 @@
   <h3>Points: <%= mark.points %></h3>
   <p><%= mark.created_at %></p>
   <p><%= mark.updated_at %></p>
+  <%= link_to "Edit mark", edit_post_mark_path(@post, mark), :class => "btn btn-warning" %>
   <%= link_to "Remove mark", post_mark_path(@post, mark), method: :delete, data: {confirm: "Do you want remove mark?"},
               :class => "btn btn-danger" %>
 <% end %>
