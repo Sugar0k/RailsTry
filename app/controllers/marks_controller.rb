@@ -20,7 +20,30 @@ class MarksController < ApplicationController
     redirect_to post_path @post
   end
 
+  def destroy
+    @post = Post.find(params[:post_id])
+    @mark = Mark.find(params[:id])
+    @mark.destroy
+
+    redirect_to post_path @post
+  end
+
   private def marks_params
     params.require(:mark).permit(:points)
   end
+
+  private def letter value
+    if value > 85
+      'A'
+    elsif value > 65
+      'B'
+    elsif value > 40
+      'C'
+    elsif value > 20
+      'D'
+    else
+      'F'
+    end
+  end
+
 end
